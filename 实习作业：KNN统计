@@ -1,5 +1,6 @@
 %局部加权线性回归算法（LWR/LOESS）  
 clc;  
+clear all;
 close all;  
 %%  
 %载入数据  
@@ -31,6 +32,6 @@ data=sortrows(data,2);
 x=data(:,1:2);  
 y=data(:,3);  
 plot(x(:,2),y);  
-%完       
+%完  
 
 PS:数据的第一列要全部为1，第二列为x，第三列为y
