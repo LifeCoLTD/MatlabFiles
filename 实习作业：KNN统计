@@ -1,0 +1,36 @@
+%局部加权线性回归算法（LWR/LOESS）  
+clc;  
+close all;  
+%%  
+%载入数据  
+%load ('data1.mat');  
+load('data.mat');
+%load ('data3.mat');  
+x=data(:,1:2);  
+y=data(:,3);  
+%%  
+m=size(x,1);%样本数  
+n=size(x,2);%特征维数  
+k=0.005;  
+w=zeros(m,m);  
+theta=zeros(n,m);  
+for i=1:m  
+    for j=1:m  
+        w(j,j)=exp(-((x(i,2)-x(j,2))^2)/(2*k^2));  
+    end  
+    theta(:,i)=((x'*w*x)\x')*w*y;  
+end  
+figure;  
+plot(x(:,2),y,'r.');%原始数据  
+hold on;  
+y_fit=x*theta;  
+y=diag(y_fit);  
+data(:,1:2)=x;  
+data(:,3)=y;  
+data=sortrows(data,2);  
+x=data(:,1:2);  
+y=data(:,3);  
+plot(x(:,2),y);  
+%完       
+
+PS:数据的第一列要全部为1，第二列为x，第三列为y
